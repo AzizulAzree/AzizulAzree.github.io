@@ -12,12 +12,19 @@
     </head>
     <body class="overflow-x-hidden bg-black antialiased">
         <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+
             html {
                 scroll-behavior: smooth;
             }
 
             body {
                 margin: 0;
+                font-family: 'Figtree', sans-serif;
                 background: #090909;
                 overflow-x: hidden;
             }
@@ -157,6 +164,7 @@
 
             .portfolio-frame {
                 position: relative;
+                min-width: 0;
                 z-index: 1;
                 width: min(100%, 1100px);
                 color: var(--page-fg, rgba(255, 255, 255, 0.92));
@@ -185,6 +193,7 @@
 
             .portfolio-title {
                 margin: 0.75rem 0 0;
+                overflow-wrap: anywhere;
                 font-size: clamp(3rem, 8vw, 7rem);
                 line-height: 0.92;
                 font-weight: 800;
@@ -436,6 +445,8 @@
 
             .portfolio-link-value {
                 margin: 0;
+                min-width: 0;
+                overflow-wrap: anywhere;
                 font-size: clamp(1rem, 1.5vw, 1.2rem);
                 line-height: 1.4;
                 text-align: right;
@@ -906,7 +917,7 @@
                 }
 
                 .portfolio-current-layout {
-                    min-height: 34rem;
+                    min-height: 0;
                 }
 
                 .portfolio-current-meta {
@@ -918,9 +929,12 @@
                 }
 
                 .portfolio-current-carousel {
+                    position: relative;
                     left: auto;
                     right: 0;
-                    bottom: -0.25rem;
+                    bottom: auto;
+                    margin-top: 2rem;
+                    margin-left: auto;
                     width: min(92%, 25rem);
                     display: flex;
                     align-items: flex-end;
@@ -1036,7 +1050,18 @@
                 }
 
                 .portfolio-site-copy {
-                    padding: 5.5rem 1rem 1rem;
+                    padding: 5.5rem 1rem 3.5rem;
+                }
+
+                .portfolio-link-item {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0.35rem;
+                }
+
+                .portfolio-link-value {
+                    max-width: 100%;
+                    text-align: left;
                 }
 
                 .portfolio-site-link {
@@ -1108,6 +1133,58 @@
                     width: 0.42rem;
                     height: 0.42rem;
                 }
+            }
+
+            /* Selectable bookmarks connect education with each career chapter. */
+            .portfolio-history-section .portfolio-stage { padding: 6rem 3.5rem 8rem; }
+            .journey-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; color: #042d22; }
+            .journey-heading .portfolio-title { font-size: clamp(2.75rem, 6vw, 5.5rem); }
+            .journey-heading > p { max-width: 20rem; margin: 0; line-height: 1.65; }
+            .career-journey { margin-top: 2.5rem; color: #042d22; }
+            .journey-rail { display: flex; overflow-x: auto; padding: 0.4rem 0.3rem 1.5rem; scrollbar-color: #042d22 transparent; scrollbar-width: thin; }
+            .journey-bookmark { position: relative; flex: 1 0 7.5rem; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; border: 0; padding: 0.5rem 0.35rem; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+            .journey-bookmark::before { content: ''; position: absolute; top: 3.9rem; left: 0; right: 0; height: 2px; background: #042d22; opacity: 0.35; }
+            .journey-bookmark:first-child::before { left: 50%; }
+            .journey-bookmark:last-child::before { right: 50%; }
+            .journey-year { min-height: 1.4rem; font-size: 0.8rem; font-weight: 700; line-height: 1.4rem; white-space: nowrap; }
+            .journey-pin { position: relative; z-index: 1; display: grid; place-items: center; width: 2.6rem; height: 3.1rem; padding-bottom: 0.35rem; background: #36a372; border: 2px solid #042d22; border-radius: 0.45rem 0.45rem 1rem 1rem; font-size: 0.75rem; font-weight: 800; transition: background 180ms ease, color 180ms ease; }
+            .journey-bookmark[aria-selected="true"] .journey-pin { background: #042d22; color: #f0ebe9; box-shadow: 0 0 0 4px #36a372, 0 0 0 5px #042d22; }
+            .journey-bookmark:hover .journey-name { text-decoration: underline; text-underline-offset: 0.25rem; }
+            .journey-name { font-size: 0.8rem; font-weight: 600; line-height: 1.4; text-align: center; }
+            .journey-panel { display: grid; grid-template-columns: minmax(10rem, 0.65fr) minmax(0, 2fr); min-height: 21rem; background: #f0ebe9; border: 1px solid #042d22; border-radius: 1.25rem; overflow: hidden; }
+            .journey-panel[hidden] { display: none; }
+            .journey-chapter { padding: 2rem; background: #123c30; color: #f0ebe9; display: flex; flex-direction: column; align-items: flex-start; }
+            .journey-number { font-size: 5rem; line-height: 1; font-weight: 800; letter-spacing: -0.07em; }
+            .journey-chapter p { font-size: 0.75rem; font-weight: 600; line-height: 1.5; }
+            .journey-chapter .journey-period { margin-top: auto; padding-top: 1.5rem; font-variant-numeric: tabular-nums; }
+            .journey-detail { padding: clamp(1.5rem, 3vw, 2.5rem); align-self: center; }
+            .journey-detail h3 { margin: 0; font-size: clamp(1.65rem, 3vw, 2.5rem); line-height: 1.12; letter-spacing: -0.04em; overflow-wrap: anywhere; }
+            .journey-role { margin: 0.85rem 0 0; font-size: 1rem; font-weight: 700; line-height: 1.5; }
+            .journey-location { margin: 0.35rem 0 0; font-size: 0.8rem; line-height: 1.5; }
+            .journey-highlights { margin: 1rem 0 0; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6; }
+            .journey-highlights li + li { margin-top: 0.45rem; }
+            .journey-description { max-width: 38rem; margin: 1rem 0 0; line-height: 1.7; }
+            .journey-skills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+            .journey-skills li { border: 1px solid #77968a; border-radius: 999px; padding: 0.4rem 0.7rem; font-size: 0.72rem; line-height: 1.4; }
+            .journey-controls { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 1rem; }
+            .journey-controls button { min-height: 2.75rem; padding: 0.6rem 1rem; border: 1px solid #042d22; border-radius: 999px; background: transparent; color: inherit; font: inherit; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+            .journey-controls button:hover:not(:disabled) { background: #042d22; color: #f0ebe9; }
+            .journey-controls button:disabled { opacity: 0.45; cursor: default; }
+            .journey-controls p { margin: 0; font-size: 0.7rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+            .career-journey :focus-visible { outline: 3px solid #042d22; outline-offset: 3px; }
+            @media (prefers-reduced-motion: reduce) { .journey-pin { transition: none; } }
+            @media (max-width: 768px) {
+                .portfolio-history-section .portfolio-stage { padding: 7rem 1.5rem 6rem; }
+                .journey-heading { flex-direction: column; align-items: flex-start; gap: 1rem; }
+                .journey-heading > p { max-width: 32rem; }
+                .journey-bookmark { flex: 0 0 7.5rem; }
+                .journey-panel { grid-template-columns: minmax(0, 1fr); min-height: 27rem; }
+                .journey-chapter { padding: 1.25rem; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 0.5rem 1rem; }
+                .journey-number { font-size: 2.5rem; }
+                .journey-chapter p { margin: 0; }
+                .journey-chapter .journey-period { padding: 0; margin: 0 0 0 auto; }
+                .journey-detail { padding: 1.5rem; }
+                .journey-controls button { padding: 0.6rem 0.75rem; }
             }
         </style>
 
@@ -1303,204 +1380,205 @@
                 </div>
             </section>
 
-            <section class="portfolio-section" data-color-one-name="Soft Stone" data-color-one="#F0EBE9" data-color-two-name="Fresh Pine" data-color-two="#36A372" data-bg="#36A372" data-fg="#F0EBE9" style="background: #36A372; --page-fg: #F0EBE9;">
+            <section class="portfolio-section portfolio-history-section" aria-labelledby="previous-work-title" data-color-one-name="Soft Stone" data-color-one="#F0EBE9" data-color-two-name="Fresh Pine" data-color-two="#36A372" data-bg="#36A372" data-fg="#F0EBE9" style="background: #36A372; --page-fg: #F0EBE9;">
                 <div class="portfolio-stage">
-                    <div class="portfolio-motion-layer" aria-hidden="true">
-                        <span class="portfolio-motion-wave" data-motion-type="wave" data-motion-speed="0.00011" data-motion-range-x="8" data-motion-range-y="18" data-motion-phase="0.4" style="top: 16%;"></span>
-                        <span class="portfolio-motion-wave" data-motion-type="wave" data-motion-speed="0.00014" data-motion-range-x="10" data-motion-range-y="16" data-motion-phase="1.5" style="top: 42%; height: 20rem;"></span>
-                        <span class="portfolio-motion-wave" data-motion-type="wave" data-motion-speed="0.00009" data-motion-range-x="6" data-motion-range-y="14" data-motion-phase="2.4" style="top: 68%; height: 12rem;"></span>
-                        <span class="portfolio-motion-wave" data-motion-type="wave" data-motion-speed="0.00012" data-motion-range-x="9" data-motion-range-y="12" data-motion-phase="3.2" style="top: 30%; height: 8rem;"></span>
-                    </div>
                     <div class="portfolio-frame">
-                        <p class="portfolio-kicker" data-scroll-reveal="soft-left">Previous Roles</p>
-                        <h2 class="portfolio-title" data-scroll-reveal="right">Previous Work</h2>
-                        <p class="portfolio-copy" data-scroll-reveal="up">Work across WordPress, Laravel, internal systems, support, and web applications.</p>
-                        <div class="portfolio-grid portfolio-previous-grid" data-scroll-reveal="down">
-                            <div class="portfolio-card portfolio-card-tall" style="grid-column: span 3 / span 3;">
-                                <p class="portfolio-card-label">K Al Walid Group</p>
-                                <p class="portfolio-card-copy">Web Developer &amp; IT Executive</p>
-                                <p class="portfolio-card-meta">2025 â€” 2026</p>
-                                <div class="portfolio-badge-row">
-                                    <span class="portfolio-badge">WordPress</span>
-                                    <span class="portfolio-badge">Laravel</span>
-                                    <span class="portfolio-badge">PHP</span>
-                                    <span class="portfolio-badge">MySQL</span>
-                                </div>
+                        <div class="journey-heading">
+                            <div>
+                                <p class="portfolio-kicker">Education &amp; experience</p>
+                                <h2 class="portfolio-title" id="previous-work-title">My Journey</h2>
                             </div>
-                            <div class="portfolio-card portfolio-card-tall" style="grid-column: span 3 / span 3;">
-                                <p class="portfolio-card-label">Bio Fluid Sdn Bhd</p>
-                                <p class="portfolio-card-copy">Website Developer &amp; Executive IT Support</p>
-                                <p class="portfolio-card-meta">2022 â€” 2025</p>
-                                <div class="portfolio-badge-row">
-                                    <span class="portfolio-badge">WordPress</span>
-                                    <span class="portfolio-badge">Multiple Sites</span>
-                                    <span class="portfolio-badge">Custom Features</span>
-                                    <span class="portfolio-badge">IT Support</span>
-                                </div>
-                            </div>
-                            <div class="portfolio-card portfolio-card-tall" style="grid-column: span 3 / span 3;">
-                                <p class="portfolio-card-label">Honsbridge International School</p>
-                                <p class="portfolio-card-copy">Web Developer cum IT/Admin Support</p>
-                                <p class="portfolio-card-meta">2019 â€” 2022</p>
-                                <div class="portfolio-badge-row">
-                                    <span class="portfolio-badge">WordPress</span>
-                                    <span class="portfolio-badge">Internal Systems</span>
-                                    <span class="portfolio-badge">Staff Support</span>
-                                </div>
-                            </div>
-                            <div class="portfolio-card portfolio-card-tall" style="grid-column: span 3 / span 3;">
-                                <p class="portfolio-card-label">Tabir Omega Sdn Bhd</p>
-                                <p class="portfolio-card-copy">Web Developer</p>
-                                <p class="portfolio-card-meta">2018 â€” 2019</p>
-                                <div class="portfolio-badge-row">
-                                    <span class="portfolio-badge">Web Applications</span>
-                                    <span class="portfolio-badge">Frontend</span>
-                                    <span class="portfolio-badge">Backend</span>
-                                </div>
-                            </div>
+                            <p>From my diploma to my current role.<br>Eight bookmarks across education and work.</p>
                         </div>
-                        <div class="portfolio-mobile-history" data-scroll-reveal="down">
-                            <div class="portfolio-mobile-history-track">
-                                <div class="portfolio-card portfolio-card-tall">
-                                    <p class="portfolio-card-label">K Al Walid Group</p>
-                                    <p class="portfolio-card-copy">Web Developer &amp; IT Executive</p>
-                                    <p class="portfolio-card-meta">2025 - 2026</p>
-                                    <div class="portfolio-badge-row">
-                                        <span class="portfolio-badge">WordPress</span>
-                                        <span class="portfolio-badge">Laravel</span>
-                                        <span class="portfolio-badge">PHP</span>
-                                        <span class="portfolio-badge">MySQL</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-card portfolio-card-tall">
-                                    <p class="portfolio-card-label">Bio Fluid Sdn Bhd</p>
-                                    <p class="portfolio-card-copy">Website Developer &amp; Executive IT Support</p>
-                                    <p class="portfolio-card-meta">2022 - 2025</p>
-                                    <div class="portfolio-badge-row">
-                                        <span class="portfolio-badge">WordPress</span>
-                                        <span class="portfolio-badge">Multiple Sites</span>
-                                        <span class="portfolio-badge">Custom Features</span>
-                                        <span class="portfolio-badge">IT Support</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-card portfolio-card-tall">
-                                    <p class="portfolio-card-label">Honsbridge International School</p>
-                                    <p class="portfolio-card-copy">Web Developer cum IT/Admin Support</p>
-                                    <p class="portfolio-card-meta">2019 - 2022</p>
-                                    <div class="portfolio-badge-row">
-                                        <span class="portfolio-badge">WordPress</span>
-                                        <span class="portfolio-badge">Internal Systems</span>
-                                        <span class="portfolio-badge">Staff Support</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-card portfolio-card-tall">
-                                    <p class="portfolio-card-label">Tabir Omega Sdn Bhd</p>
-                                    <p class="portfolio-card-copy">Web Developer</p>
-                                    <p class="portfolio-card-meta">2018 - 2019</p>
-                                    <div class="portfolio-badge-row">
-                                        <span class="portfolio-badge">Web Applications</span>
-                                        <span class="portfolio-badge">Frontend</span>
-                                        <span class="portfolio-badge">Backend</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-card portfolio-card-tall" aria-hidden="true">
-                                    <p class="portfolio-card-label">K Al Walid Group</p>
-                                    <p class="portfolio-card-copy">Web Developer &amp; IT Executive</p>
-                                    <p class="portfolio-card-meta">2025 - 2026</p>
-                                    <div class="portfolio-badge-row">
-                                        <span class="portfolio-badge">WordPress</span>
-                                        <span class="portfolio-badge">Laravel</span>
-                                        <span class="portfolio-badge">PHP</span>
-                                        <span class="portfolio-badge">MySQL</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-card portfolio-card-tall" aria-hidden="true">
-                                    <p class="portfolio-card-label">Bio Fluid Sdn Bhd</p>
-                                    <p class="portfolio-card-copy">Website Developer &amp; Executive IT Support</p>
-                                    <p class="portfolio-card-meta">2022 - 2025</p>
-                                    <div class="portfolio-badge-row">
-                                        <span class="portfolio-badge">WordPress</span>
-                                        <span class="portfolio-badge">Multiple Sites</span>
-                                        <span class="portfolio-badge">Custom Features</span>
-                                        <span class="portfolio-badge">IT Support</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-card portfolio-card-tall" aria-hidden="true">
-                                    <p class="portfolio-card-label">Honsbridge International School</p>
-                                    <p class="portfolio-card-copy">Web Developer cum IT/Admin Support</p>
-                                    <p class="portfolio-card-meta">2019 - 2022</p>
-                                    <div class="portfolio-badge-row">
-                                        <span class="portfolio-badge">WordPress</span>
-                                        <span class="portfolio-badge">Internal Systems</span>
-                                        <span class="portfolio-badge">Staff Support</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-card portfolio-card-tall" aria-hidden="true">
-                                    <p class="portfolio-card-label">Tabir Omega Sdn Bhd</p>
-                                    <p class="portfolio-card-copy">Web Developer</p>
-                                    <p class="portfolio-card-meta">2018 - 2019</p>
-                                    <div class="portfolio-badge-row">
-                                        <span class="portfolio-badge">Web Applications</span>
-                                        <span class="portfolio-badge">Frontend</span>
-                                        <span class="portfolio-badge">Backend</span>
-                                    </div>
-                                </div>
+                        <div class="career-journey" data-career-journey>
+                            <div class="journey-rail" role="tablist" aria-label="Education and career milestones">
+                                <button type="button" class="journey-bookmark" role="tab" id="milestone-diploma" aria-controls="chapter-diploma" aria-selected="true" tabindex="0">
+                                    <span class="journey-year">2015</span>
+                                    <span class="journey-pin" aria-hidden="true">01</span>
+                                    <span class="journey-name">Diploma completed</span>
+                                </button>
+                                <button type="button" class="journey-bookmark" role="tab" id="milestone-tabir" aria-controls="chapter-tabir" aria-selected="false" tabindex="-1">
+                                    <span class="journey-year">2018</span>
+                                    <span class="journey-pin" aria-hidden="true">02</span>
+                                    <span class="journey-name">Tabir Omega</span>
+                                </button>
+                                <button type="button" class="journey-bookmark" role="tab" id="milestone-degree" aria-controls="chapter-degree" aria-selected="false" tabindex="-1">
+                                    <span class="journey-year">2019</span>
+                                    <span class="journey-pin" aria-hidden="true">03</span>
+                                    <span class="journey-name">Degree completed</span>
+                                </button>
+                                <button type="button" class="journey-bookmark" role="tab" id="milestone-honsbridge" aria-controls="chapter-honsbridge" aria-selected="false" tabindex="-1">
+                                    <span class="journey-year">2019</span>
+                                    <span class="journey-pin" aria-hidden="true">04</span>
+                                    <span class="journey-name">Honsbridge</span>
+                                </button>
+                                <button type="button" class="journey-bookmark" role="tab" id="milestone-bio" aria-controls="chapter-bio" aria-selected="false" tabindex="-1">
+                                    <span class="journey-year">2022</span>
+                                    <span class="journey-pin" aria-hidden="true">05</span>
+                                    <span class="journey-name">Bio Fluid</span>
+                                </button>
+                                <button type="button" class="journey-bookmark" role="tab" id="milestone-aura" aria-controls="chapter-aura" aria-selected="false" tabindex="-1">
+                                    <span class="journey-year">2024</span>
+                                    <span class="journey-pin" aria-hidden="true">06</span>
+                                    <span class="journey-name">Aura Emas</span>
+                                </button>
+                                <button type="button" class="journey-bookmark" role="tab" id="milestone-walid" aria-controls="chapter-walid" aria-selected="false" tabindex="-1">
+                                    <span class="journey-year">2025</span>
+                                    <span class="journey-pin" aria-hidden="true">07</span>
+                                    <span class="journey-name">K Al Walid</span>
+                                </button>
+                                <button type="button" class="journey-bookmark" role="tab" id="milestone-jakel" aria-controls="chapter-jakel" aria-selected="false" tabindex="-1">
+                                    <span class="journey-year">2026</span>
+                                    <span class="journey-pin" aria-hidden="true">08</span>
+                                    <span class="journey-name">Jakel</span>
+                                </button>
                             </div>
-                        </div>
-                        <div class="portfolio-diagonal-shell" data-scroll-reveal="down">
-                            <div class="portfolio-diagonal-outer" data-diagonal-scroll tabindex="0" aria-label="Previous work diagonal scroll">
-                                <div class="portfolio-diagonal-inner">
-                                    <section class="portfolio-diagonal-item">
-                                        <div class="portfolio-diagonal-content">
-                                            <p class="portfolio-diagonal-title">K Al Walid Group</p>
-                                            <p class="portfolio-diagonal-role">Web Developer &amp; IT Executive</p>
-                                            <p class="portfolio-diagonal-meta">2025 - 2026</p>
-                                            <div class="portfolio-badge-row">
-                                                <span class="portfolio-badge">WordPress</span>
-                                                <span class="portfolio-badge">Laravel</span>
-                                                <span class="portfolio-badge">PHP</span>
-                                                <span class="portfolio-badge">MySQL</span>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section class="portfolio-diagonal-item">
-                                        <div class="portfolio-diagonal-content">
-                                            <p class="portfolio-diagonal-title">Bio Fluid Sdn Bhd</p>
-                                            <p class="portfolio-diagonal-role">Website Developer &amp; Executive IT Support</p>
-                                            <p class="portfolio-diagonal-meta">2022 - 2025</p>
-                                            <div class="portfolio-badge-row">
-                                                <span class="portfolio-badge">WordPress</span>
-                                                <span class="portfolio-badge">Multiple Sites</span>
-                                                <span class="portfolio-badge">Custom Features</span>
-                                                <span class="portfolio-badge">IT Support</span>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section class="portfolio-diagonal-item">
-                                        <div class="portfolio-diagonal-content">
-                                            <p class="portfolio-diagonal-title">Honsbridge International School</p>
-                                            <p class="portfolio-diagonal-role">Web Developer cum IT/Admin Support</p>
-                                            <p class="portfolio-diagonal-meta">2019 - 2022</p>
-                                            <div class="portfolio-badge-row">
-                                                <span class="portfolio-badge">WordPress</span>
-                                                <span class="portfolio-badge">Internal Systems</span>
-                                                <span class="portfolio-badge">Staff Support</span>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section class="portfolio-diagonal-item">
-                                        <div class="portfolio-diagonal-content">
-                                            <p class="portfolio-diagonal-title">Tabir Omega Sdn Bhd</p>
-                                            <p class="portfolio-diagonal-role">Web Developer</p>
-                                            <p class="portfolio-diagonal-meta">2018 - 2019</p>
-                                            <div class="portfolio-badge-row">
-                                                <span class="portfolio-badge">Web Applications</span>
-                                                <span class="portfolio-badge">Frontend</span>
-                                                <span class="portfolio-badge">Backend</span>
-                                            </div>
-                                        </div>
-                                    </section>
+                            <article class="journey-panel" role="tabpanel" id="chapter-diploma" aria-labelledby="milestone-diploma" tabindex="0">
+                                <div class="journey-chapter">
+                                    <span class="journey-number" aria-hidden="true">01</span>
+                                    <p>Education milestone</p>
+                                    <p class="journey-period">2012 — 2015</p>
                                 </div>
+                                <div class="journey-detail">
+                                    <h3>Diploma in Computer Science</h3>
+                                    <p class="journey-role">Universiti Teknologi MARA</p>
+                                    <p class="journey-location">Jasin, Melaka</p>
+                                    <p class="journey-description">Completed a Diploma in Computer Science at UiTM Jasin.</p>
+                                    <ul class="journey-skills" aria-label="Skills and focus areas"><li>Computer Science</li><li>Diploma</li></ul>
+                                </div>
+                            </article>
+                            <article class="journey-panel" role="tabpanel" id="chapter-tabir" aria-labelledby="milestone-tabir" tabindex="0" hidden>
+                                <div class="journey-chapter">
+                                    <span class="journey-number" aria-hidden="true">02</span>
+                                    <p>Internship &amp; contract</p>
+                                    <p class="journey-period">2018 — 2019</p>
+                                </div>
+                                <div class="journey-detail">
+                                    <h3>Tabir Omega Sdn Bhd</h3>
+                                    <p class="journey-role">Web Developer (Internship &amp; Contract)</p>
+                                    <p class="journey-location">Petaling Jaya, Selangor</p>
+                                    <p class="journey-description">Started professional web development work during the degree years.</p>
+                                    <ul class="journey-highlights">
+                                        <li>Supported web application development and maintenance, with attention to compatibility and scalability.</li>
+                                        <li>Resolved IT issues and assisted with network infrastructure maintenance.</li>
+                                        <li>Collaborated on web solutions focused on client needs.</li>
+                                    </ul>
+                                    <ul class="journey-skills" aria-label="Skills and focus areas"><li>Web applications</li><li>IT support</li><li>Network maintenance</li></ul>
+                                </div>
+                            </article>
+                            <article class="journey-panel" role="tabpanel" id="chapter-degree" aria-labelledby="milestone-degree" tabindex="0" hidden>
+                                <div class="journey-chapter">
+                                    <span class="journey-number" aria-hidden="true">03</span>
+                                    <p>Education milestone</p>
+                                    <p class="journey-period">2016 — 2019</p>
+                                </div>
+                                <div class="journey-detail">
+                                    <h3>Bachelor’s Degree in Computer Science</h3>
+                                    <p class="journey-role">Universiti Teknologi MARA</p>
+                                    <p class="journey-location">Shah Alam, Selangor</p>
+                                    <p class="journey-description">Completed a bachelor’s degree in the Faculty of Computer and Mathematical Science at UiTM Shah Alam.</p>
+                                    <ul class="journey-skills" aria-label="Skills and focus areas"><li>Computer Science</li><li>Bachelor’s degree</li></ul>
+                                </div>
+                            </article>
+                            <article class="journey-panel" role="tabpanel" id="chapter-honsbridge" aria-labelledby="milestone-honsbridge" tabindex="0" hidden>
+                                <div class="journey-chapter">
+                                    <span class="journey-number" aria-hidden="true">04</span>
+                                    <p>Web &amp; staff support</p>
+                                    <p class="journey-period">2019 — 2022</p>
+                                </div>
+                                <div class="journey-detail">
+                                    <h3>Honsbridge International Sdn Bhd</h3>
+                                    <p class="journey-role">Web Developer cum IT/Admin Support</p>
+                                    <p class="journey-location">Petaling Jaya, Selangor</p>
+                                    <p class="journey-description">Combined website development with IT support for academic and administrative staff.</p>
+                                    <ul class="journey-highlights">
+                                        <li>Created and maintained a responsive, user-friendly company website.</li>
+                                        <li>Provided staff IT support and routine hardware and software maintenance.</li>
+                                        <li>Implemented IT documentation processes to support knowledge sharing and troubleshooting.</li>
+                                    </ul>
+                                    <ul class="journey-skills" aria-label="Skills and focus areas"><li>Website development</li><li>Staff support</li><li>IT documentation</li></ul>
+                                </div>
+                            </article>
+                            <article class="journey-panel" role="tabpanel" id="chapter-bio" aria-labelledby="milestone-bio" tabindex="0" hidden>
+                                <div class="journey-chapter">
+                                    <span class="journey-number" aria-hidden="true">05</span>
+                                    <p>Websites &amp; hosting</p>
+                                    <p class="journey-period">2022 — Sep 2024</p>
+                                </div>
+                                <div class="journey-detail">
+                                    <h3>Bio Fluid Sdn Bhd</h3>
+                                    <p class="journey-role">Web Developer &amp; Junior IT Executive</p>
+                                    <p class="journey-location">Petaling Jaya, Selangor</p>
+                                    <p class="journey-description">Developed multiple websites and custom features while supporting hosting and internal IT.</p>
+                                    <ul class="journey-highlights">
+                                        <li>Led website development and enhancements tailored to client specifications.</li>
+                                        <li>Administered cPanel hosting and maintained network infrastructure.</li>
+                                        <li>Worked with marketing on branding and SEO, alongside staff IT support.</li>
+                                    </ul>
+                                    <ul class="journey-skills" aria-label="Skills and focus areas"><li>Custom features</li><li>cPanel</li><li>SEO</li><li>IT support</li></ul>
+                                </div>
+                            </article>
+                            <article class="journey-panel" role="tabpanel" id="chapter-aura" aria-labelledby="milestone-aura" tabindex="0" hidden>
+                                <div class="journey-chapter">
+                                    <span class="journey-number" aria-hidden="true">06</span>
+                                    <p>Web &amp; IT operations</p>
+                                    <p class="journey-period">Oct 2024 — Feb 2025</p>
+                                </div>
+                                <div class="journey-detail">
+                                    <h3>Aura Emas Trading Sdn Bhd</h3>
+                                    <p class="journey-role">Web Developer &amp; IT Executive</p>
+                                    <p class="journey-location">Petaling Jaya, Selangor</p>
+                                    <p class="journey-description">Led company website work alongside day-to-day IT operations.</p>
+                                    <ul class="journey-highlights">
+                                        <li>Designed, developed, and maintained the company website around business needs.</li>
+                                        <li>Resolved hardware and software issues and supported IT system security.</li>
+                                        <li>Managed IT assets, network infrastructure, and connectivity issues.</li>
+                                    </ul>
+                                    <ul class="journey-skills" aria-label="Skills and focus areas"><li>Website development</li><li>IT operations</li><li>Network infrastructure</li></ul>
+                                </div>
+                            </article>
+                            <article class="journey-panel" role="tabpanel" id="chapter-walid" aria-labelledby="milestone-walid" tabindex="0" hidden>
+                                <div class="journey-chapter">
+                                    <span class="journey-number" aria-hidden="true">07</span>
+                                    <p>CRM &amp; system rebuild</p>
+                                    <p class="journey-period">Mar 2025 — Dec 2025</p>
+                                </div>
+                                <div class="journey-detail">
+                                    <h3>K Al Walid Sdn Bhd</h3>
+                                    <p class="journey-role">Web Developer &amp; IT Executive</p>
+                                    <p class="journey-location">Bandar Baru Bangi, Selangor</p>
+                                    <p class="journey-description">Led a move from a legacy CRM platform to a new Laravel 12 system.</p>
+                                    <ul class="journey-highlights">
+                                        <li>Maintained and optimized the existing PHP/MySQL CRM.</li>
+                                        <li>Developed the replacement Laravel 12 system and migrated data and workflows.</li>
+                                        <li>Improved performance, scalability, and security while aligning features with stakeholders’ needs.</li>
+                                    </ul>
+                                    <ul class="journey-skills" aria-label="Skills and focus areas"><li>Laravel 12</li><li>PHP</li><li>MySQL</li><li>Data migration</li></ul>
+                                </div>
+                            </article>
+                            <article class="journey-panel" role="tabpanel" id="chapter-jakel" aria-labelledby="milestone-jakel" tabindex="0" hidden>
+                                <div class="journey-chapter">
+                                    <span class="journey-number" aria-hidden="true">08</span>
+                                    <p>Current chapter</p>
+                                    <p class="journey-period">Feb 2026 — Present</p>
+                                </div>
+                                <div class="journey-detail">
+                                    <h3>Jakel Wholesale &amp; Distribution Centre (JWDC)</h3>
+                                    <p class="journey-role">Web Developer (E-commerce – Shopify)</p>
+                                    <p class="journey-location">Semenyih, Selangor</p>
+                                    <p class="journey-description">Manage Shopify storefronts across multiple brands, including No Label Clothing, Galeri Hajra, and Aafya.Co.</p>
+                                    <ul class="journey-highlights">
+                                        <li>Customize themes with Liquid, HTML, CSS, and JavaScript.</li>
+                                        <li>Optimize storefront performance, technical SEO, mobile responsiveness, and product-page conversion flow.</li>
+                                        <li>Support tracking integrations using Google Analytics, Google Tag Manager, and Meta Pixel.</li>
+                                    </ul>
+                                    <ul class="journey-skills" aria-label="Skills and focus areas"><li>Shopify</li><li>Liquid</li><li>Technical SEO</li><li>Analytics &amp; tracking</li></ul>
+                                </div>
+                            </article>
+                            <div class="journey-controls">
+                                <button type="button" data-journey-prev aria-label="Previous milestone" disabled>&larr; Previous</button>
+                                <p data-journey-count role="status">Chapter 01 / 08</p>
+                                <button type="button" data-journey-next aria-label="Next milestone">Next &rarr;</button>
                             </div>
                         </div>
                     </div>
@@ -1583,6 +1661,52 @@
                 const colorTwoCode = paletteTag?.querySelector('[data-palette-color-two-code]');
                 const contactSection = document.querySelector('.portfolio-contact-section');
                 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+                const journey = document.querySelector('[data-career-journey]');
+                if (journey) {
+                    const rail = journey.querySelector('[role="tablist"]');
+                    const tabs = Array.from(rail.querySelectorAll('[role="tab"]'));
+                    const panels = Array.from(journey.querySelectorAll('[role="tabpanel"]'));
+                    const previous = journey.querySelector('[data-journey-prev]');
+                    const next = journey.querySelector('[data-journey-next]');
+                    const count = journey.querySelector('[data-journey-count]');
+                    let selected = 0;
+
+                    const selectMilestone = (index, focusTab = false) => {
+                        selected = Math.max(0, Math.min(index, tabs.length - 1));
+                        tabs.forEach((tab, i) => {
+                            tab.setAttribute('aria-selected', String(i === selected));
+                            tab.tabIndex = i === selected ? 0 : -1;
+                            panels[i].hidden = i !== selected;
+                        });
+                        previous.disabled = selected === 0;
+                        next.disabled = selected === tabs.length - 1;
+                        count.textContent = 'Chapter ' + String(selected + 1).padStart(2, '0') + ' / ' + String(tabs.length).padStart(2, '0');
+                        const tab = tabs[selected];
+                        if (focusTab) tab.focus({ preventScroll: true });
+                        const tabRect = tab.getBoundingClientRect();
+                        const railRect = rail.getBoundingClientRect();
+                        // Scroll only the bookmark rail; leave the page and detail panel in place.
+                        if (tabRect.left < railRect.left || tabRect.right > railRect.right) {
+                            rail.scrollBy({ left: tabRect.left - railRect.left - (rail.clientWidth - tabRect.width) / 2, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+                        }
+                    };
+                    tabs.forEach((tab, index) => tab.addEventListener('click', () => selectMilestone(index)));
+                    rail.addEventListener('keydown', (event) => {
+                        let target = selected;
+                        if (event.key === 'ArrowRight') target = (selected + 1) % tabs.length;
+                        else if (event.key === 'ArrowLeft') target = (selected - 1 + tabs.length) % tabs.length;
+                        else if (event.key === 'Home') target = 0;
+                        else if (event.key === 'End') target = tabs.length - 1;
+                        else return;
+                        event.preventDefault();
+                        event.stopPropagation();
+                        selectMilestone(target, true);
+                    });
+                    previous.addEventListener('click', () => selectMilestone(selected - 1, true));
+                    next.addEventListener('click', () => selectMilestone(selected + 1, true));
+                }
+
                 let activeIndex = 0;
                 let isAnimating = false;
                 let touchStartY = null;
@@ -1686,23 +1810,28 @@
                 };
 
                 const observer = new IntersectionObserver(
-                    (entries) => {
-                        const visibleEntries = entries
-                            .filter((entry) => entry.isIntersecting)
-                            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+                    () => {
+                        // Compare visible pixels, so tall sections remain active while being read.
+                        const visibleSections = sections.map((section, index) => {
+                            const rect = section.getBoundingClientRect();
+                            return {
+                                index,
+                                visible: Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0)),
+                            };
+                        }).sort((a, b) => b.visible - a.visible);
 
-                        if (! visibleEntries.length) {
+                        if (! visibleSections[0]?.visible) {
                             return;
                         }
 
-                        const nextIndex = sections.indexOf(visibleEntries[0].target);
+                        const nextIndex = visibleSections[0].index;
 
                         if (nextIndex >= 0) {
                             setActiveSection(nextIndex);
                         }
                     },
                     {
-                        threshold: [0.3, 0.45, 0.6, 0.75],
+                        threshold: [0.01, 0.1, 0.3, 0.45, 0.6, 0.75],
                     }
                 );
 
@@ -1778,6 +1907,13 @@
                         return false;
                     }
 
+                    // Let readers scroll through sections taller than the viewport.
+                    const activeRect = sections[activeIndex].getBoundingClientRect();
+                    if ((direction > 0 && activeRect.bottom > window.innerHeight + 2)
+                        || (direction < 0 && activeRect.top < -2)) {
+                        return false;
+                    }
+
                     const nextIndex = activeIndex + direction;
 
                     if (nextIndex < 0 || nextIndex >= sections.length) {
@@ -1789,6 +1925,7 @@
                 };
 
                 window.addEventListener('wheel', (event) => {
+                    if (event.target.closest('.journey-rail') && Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
                     if (Math.abs(event.deltaY) < 12) {
                         return;
                     }
@@ -1806,6 +1943,7 @@
                 }, { passive: false });
 
                 window.addEventListener('keydown', (event) => {
+                    if (event.defaultPrevented || event.target.closest('button, a, input, textarea, select, [contenteditable]')) return;
                     if (['ArrowDown', 'PageDown', ' '].includes(event.key)) {
                         if (scrollActiveDiagonal(1, window.innerHeight * 0.38)) {
                             event.preventDefault();
@@ -1844,7 +1982,7 @@
                 });
 
                 window.addEventListener('touchstart', (event) => {
-                    touchStartY = event.touches[0]?.clientY ?? null;
+                    touchStartY = event.target.closest('.journey-rail') ? null : (event.touches[0]?.clientY ?? null);
                 }, { passive: true });
 
                 window.addEventListener('touchend', (event) => {
